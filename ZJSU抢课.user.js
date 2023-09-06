@@ -6,6 +6,7 @@
 // @author       Zzzcy
 // @match        */jwglxt/*gnmkdm=N253512*
 // @grant        unsafeWindow
+// @license      MPL
 // ==/UserScript==
 
 var data1, route, responseData, stuNumber;
