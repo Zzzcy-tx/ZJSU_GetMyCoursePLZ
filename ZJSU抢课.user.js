@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ZJSU抢课
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/Zzzcy-tx/ZJSU_GetMyCoursePLZ
 // @version      1.0
 // @description  发送包含指定的数据的HTTP POST
 // @author       Zzzcy
