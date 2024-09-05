@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         ZJSUæŠ¢è¯¾
+// @name         ZJSUÇÀ¿Î
 // @namespace    https://github.com/Zzzcy-tx/ZJSU_GetMyCoursePLZ
 // @version      1.0
-// @description  å‘é€åŒ…å«æŒ‡å®šçš„æ•°æ®çš„HTTP POST
+// @description  ·¢ËÍ°üº¬Ö¸¶¨µÄÊı¾İµÄHTTP POST
 // @author       Zzzcy
 // @match        */jwglxt/*gnmkdm=N253512*
 // @grant        unsafeWindow
@@ -14,7 +14,7 @@ let draggableBox;
 const qqNumber = '552241992'
 let shouldCaptureFetch = false;
 
-// ç›‘å¬é¡µé¢çš„ XMLHttpRequest è¯·æ±‚
+// ¼àÌıÒ³ÃæµÄ XMLHttpRequest ÇëÇó
 const open = XMLHttpRequest.prototype.open;
 const send = XMLHttpRequest.prototype.send;
 const originalSend = XMLHttpRequest.prototype.send;
@@ -28,7 +28,7 @@ XMLHttpRequest.prototype.open = function (method, url) {
         stuNumber = url.substring(58,69);
         console.log(stuNumber);
     }
-    // ç»§ç»­åŸå§‹çš„ XMLHttpRequest è¯·æ±‚
+    // ¼ÌĞøÔ­Ê¼µÄ XMLHttpRequest ÇëÇó
     return open.apply(this, arguments);
 };
 
@@ -38,55 +38,60 @@ XMLHttpRequest.prototype.send = function (data) {
         data1 = data;
     }
     console.log(data1);
-    originalSend.call(this, data);// ç»§ç»­åŸå§‹çš„ XMLHttpRequest è¯·æ±‚
+    originalSend.call(this, data);// ¼ÌĞøÔ­Ê¼µÄ XMLHttpRequest ÇëÇó
 };
 
-// åˆ›å»ºä¸€ä¸ªå…ƒç´ æ¥æ˜¾ç¤ºæ•°æ®
+// ´´½¨Ò»¸öÔªËØÀ´ÏÔÊ¾Êı¾İ
 const resultDiv = document.createElement('div');
 document.body.appendChild(resultDiv);
-resultDiv.textContent = 'ç­‰å¾…å¼€å¯ã€‚'
+resultDiv.textContent = '   µÈ´ı¿ªÆô¡£'
 
-// åˆ›å»ºä¸€ä¸ªâ€œè¯·æ±‚â€æŒ‰é’®å’Œä¸€ä¸ªâ€œåœæ­¢â€æŒ‰é’®
+const lineBreak = document.createElement('br');
+document.body.appendChild(lineBreak);
+
+// ´´½¨Ò»¸ö¡°ÇëÇó¡±°´Å¥ºÍÒ»¸ö¡°Í£Ö¹¡±°´Å¥
 const requestButton = document.createElement('button');
-requestButton.textContent = 'å‘é€ POST è¯·æ±‚';
+requestButton.textContent = ' ·¢ËÍ POST ÇëÇó ';
 document.body.appendChild(requestButton);
 const stopButton = document.createElement('button');
-stopButton.textContent = 'åœæ­¢';
+stopButton.textContent = ' Í£Ö¹ ';
 document.body.appendChild(stopButton);
 
 const recordButton = document.createElement('button');
-recordButton.textContent = 'å½•åˆ¶POST'
+recordButton.textContent = ' Â¼ÖÆPOST '
 document.body.appendChild(recordButton);
 
+document.body.appendChild(lineBreak);
 
-// è¯·æ±‚æ˜¯å¦æ­£åœ¨è¿›è¡Œ
+
+// ÇëÇóÊÇ·ñÕıÔÚ½øĞĞ
 let isRequesting = false;
 
-// â€œè¯·æ±‚â€æŒ‰é’®ç‚¹å‡»äº‹ä»¶å¤„ç†ç¨‹åº
+// ¡°ÇëÇó¡±°´Å¥µã»÷ÊÂ¼ş´¦Àí³ÌĞò
 requestButton.addEventListener('click', () => {
   if (!isRequesting) {
     isRequesting = true;
     requestLoop();
   }
 });
-// â€œåœæ­¢â€æŒ‰é’®ç‚¹å‡»äº‹ä»¶å¤„ç†ç¨‹åº
+// ¡°Í£Ö¹¡±°´Å¥µã»÷ÊÂ¼ş´¦Àí³ÌĞò
 stopButton.addEventListener('click', () => {
     isRequesting = false;
-    resultDiv.textContent = 'ç­‰å¾…å¼€å¯ã€‚'
+    resultDiv.textContent = 'µÈ´ı¿ªÆô¡£'
 });
 
 recordButton.addEventListener('click', () => {
     if(shouldCaptureFetch){
         shouldCaptureFetch = false
-        resultDiv.textContent = 'æœªå¼€å§‹ç›‘å¬POST'
+        resultDiv.textContent = 'Î´¿ªÊ¼¼àÌıPOST'
     } else {
         shouldCaptureFetch = true
-        resultDiv.textContent = 'æ­£åœ¨ç›‘å¬POSTâ€¦â€¦'
+        resultDiv.textContent = 'ÕıÔÚ¼àÌıPOST¡­¡­'
     }
 });
 
 
-// å®šä¹‰ä¸€ä¸ªå‡½æ•°æ¥å‘é€POSTè¯·æ±‚
+// ¶¨ÒåÒ»¸öº¯ÊıÀ´·¢ËÍPOSTÇëÇó
 async function sendPostRequest() {
   try {
       const data = data1;
@@ -117,26 +122,26 @@ async function sendPostRequest() {
       var flag = JSON.parse(responseData).flag;
       console.log(flag);
 
-      // å°†JSONæ•°æ®è½¬æ¢ä¸ºå­—ç¬¦ä¸²å¹¶æ˜¾ç¤ºåœ¨<div>å…ƒç´ ä¸­
+      // ½«JSONÊı¾İ×ª»»Îª×Ö·û´®²¢ÏÔÊ¾ÔÚ<div>ÔªËØÖĞ
       if(flag === '-1'){
-          resultDiv.textContent = 'æ­£åœ¨ç­‰å¾…ä½™é‡æ”¾å‡ºï¼Œè¯·è€å¿ƒç­‰å¾…â€¦â€¦'
+          resultDiv.textContent = 'ÕıÔÚµÈ´ıÓàÁ¿·Å³ö£¬ÇëÄÍĞÄµÈ´ı¡­¡­'
       } else if( flag === '0' ){
-          resultDiv.textContent = 'æ’è¯¾æ—¶é—´å†²çªæˆ–æœªæ­£ç¡®å½•åˆ¶POSTï¼è¯·åˆ·æ–°ç•Œé¢'
+          resultDiv.textContent = 'ÅÅ¿ÎÊ±¼ä³åÍ»»òÎ´ÕıÈ·Â¼ÖÆPOST£¡ÇëË¢ĞÂ½çÃæ'
       } else if( flag === '1' ){
-          resultDiv.textContent = 'æŠ¢è¯¾æˆåŠŸ \\^_^// '
+          resultDiv.textContent = 'ÇÀ¿Î³É¹¦ \\^_^// '
       } else {
-          resultDiv.textContent = `æœªçŸ¥flag,è¯·è”ç³»æŠ€æœ¯äººå‘˜QQ:${qqNumber}`
+          resultDiv.textContent = `Î´Öªflag,ÇëÁªÏµ¼¼ÊõÈËÔ±QQ:${qqNumber}`
       }
       //resultDiv.textContent = JSON.stringify(responseData, null, 2);
-      // å¦‚æœdata.flagç­‰äº1ï¼Œæˆ–è€…åœæ­¢æŒ‰é’®æŒ‰ä¸‹ï¼Œåˆ™åœæ­¢è¯·æ±‚
+      // Èç¹ûdata.flagµÈÓÚ1£¬»òÕßÍ£Ö¹°´Å¥°´ÏÂ£¬ÔòÍ£Ö¹ÇëÇó
       if (flag === '1' || flag === '0' || !isRequesting) {
           isRequesting = false;
       }
   } catch (error) {
-    console.error('å‘ç”Ÿé”™è¯¯ï¼š', error);
+    console.error('·¢Éú´íÎó£º', error);
   }
 };
-// å®šä¹‰ä¸€ä¸ªå‡½æ•°æ¥å®šæ—¶å‘é€è¯·æ±‚
+// ¶¨ÒåÒ»¸öº¯ÊıÀ´¶¨Ê±·¢ËÍÇëÇó
 async function requestLoop() {
     while (isRequesting) {
         await sendPostRequest();
@@ -144,13 +149,13 @@ async function requestLoop() {
         route = document.cookie;
     }
 };
-// sleepå‡½æ•°
+// sleepº¯Êı
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 
-//æç¤ºç•Œé¢
+//ÌáÊ¾½çÃæ
 (function () {
     const style = document.createElement('style');
     style.textContent =
@@ -207,31 +212,36 @@ function sleep(ms) {
             color: #0be94e;
         }
         `
+    
+    
     document.head.appendChild(style);
     const grabclasscontainer = document.createElement('div');
     grabclasscontainer.className = 'grabclasscontainer';
     grabclasscontainer.id = 'grabclasscontainer';
     grabclasscontainer.innerHTML = `
         <div class="dragBar" id="dragBar">
-            æŒ‰ä½æ‹–åŠ¨
+            °´×¡ÍÏ¶¯
         </div>
         <div class="content">
             <div class="copyright">
-                ã€ä½¿ç”¨æ–¹å¼ã€‘<br>
-                1.ç‚¹å¼€ä½ æƒ³è¦çš„è¯¾ï¼Œç¡®ä¿è¿™è¯¾çš„æ—¶é—´æ®µæ²¡æœ‰å†²çªã€‚<br>
-                2.æ»šåŠ¨åˆ°ç½‘é¡µæœ€ä¸‹æ–¹ï¼Œç‚¹å‡»â€œå½•åˆ¶POSTâ€ï¼Œç„¶åç‚¹å³è¾¹çš„â€œé€‰è¯¾â€<br>
-                3.ä¸­é—´ä¼šå¼¹å‡ºæç¤ºâ€œå·²æ— ä½™é‡ï¼Œä¸å¯é€‰â€çš„æç¤ºï¼Œç‚¹ç¡®å®šã€‚<br>
-                4.æ¥ç€ç‚¹å‡»ç½‘é¡µæœ€ä¸‹æ–¹çš„â€œå‘é€POSTè¯·æ±‚â€ï¼Œè§‚å¯ŸæŒ‰é’®ä¸Šæ–¹æç¤ºï¼Œâ€œæ­£åœ¨ç­‰å¾…ä½™é‡æ”¾å‡ºï¼Œè¯·è€å¿ƒç­‰å¾…â€¦â€¦â€åˆ™ä¸ºæ­£å¸¸<br>
-                5.ä¸è¦å…³é—­ç½‘é¡µï¼Œä¸è¦å…³é—­ç”µè„‘ï¼Œæœ€å¥½æŠŠç½‘é¡µæœ€å¤§åŒ–ï¼Œç­‰å¾…æŠ¢è¯¾æˆåŠŸã€‚<br><br><br>
-                ã€è”ç³»ä½œè€…ã€‘æœ‰å¿å¸®åŠ©ï¼šQQï¼š${qqNumber}<br>
+                ¡¾Ê¹ÓÃ·½Ê½¡¿<br>
+                1.µã¿ªÄãÏëÒªµÄ¿Î£¬È·±£Õâ¿ÎµÄÊ±¼ä¶ÎÃ»ÓĞ³åÍ»¡£<br>
+                2.¹ö¶¯µ½ÍøÒ³×îÏÂ·½£¬µã»÷¡°Â¼ÖÆPOST¡±£¬È»ºóµãÓÒ±ßµÄ¡°Ñ¡¿Î¡±<br>
+                3.ÖĞ¼ä»áµ¯³öÌáÊ¾¡°ÒÑÎŞÓàÁ¿£¬²»¿ÉÑ¡¡±µÄÌáÊ¾£¬µãÈ·¶¨¡£<br>
+                4.½Ó×Åµã»÷ÍøÒ³×îÏÂ·½µÄ¡°·¢ËÍPOSTÇëÇó¡±£¬¹Û²ì°´Å¥ÉÏ·½ÌáÊ¾£¬¡°ÕıÔÚµÈ´ıÓàÁ¿·Å³ö£¬ÇëÄÍĞÄµÈ´ı¡­¡­¡±ÔòÎªÕı³£<br>
+                5.²»Òª¹Ø±ÕÍøÒ³£¬²»Òª¹Ø±ÕµçÄÔ£¬×îºÃ°ÑÍøÒ³×î´ó»¯£¬µÈ´ıÇÀ¿Î³É¹¦¡£<br><br><br>
+                ¡¾ÁªÏµ×÷Õß¡¿ÓĞ³¥°ïÖú£ºQQ£º${qqNumber}<br>
             </div>
         </div>
         `
+    
     document.body.appendChild(grabclasscontainer);
     draggableBox = document.getElementById("grabclasscontainer");
     const dragBar = draggableBox.querySelector(".dragBar");
     let isDragging = false;
     let offsetX, offsetY;
+    
+    //EventTarget Listeners
     dragBar.addEventListener("mousedown", (e) => {
         isDragging = true;
         offsetX = e.clientX - draggableBox.getBoundingClientRect().left;
@@ -247,7 +257,7 @@ function sleep(ms) {
     });
     document.addEventListener("mouseup", () => {
         isDragging = false;
-        draggableBox.style.transition = "all 0.3s ease"; // æ·»åŠ å¹³æ»‘çš„è¿‡æ¸¡æ•ˆæœ
+        draggableBox.style.transition = "all 0.3s ease"; // Ìí¼ÓÆ½»¬µÄ¹ı¶ÉĞ§¹û
     });
     draggableBox.querySelector('.clear').addEventListener('click', () => {
         localStorage.removeItem('targetTeacher');
