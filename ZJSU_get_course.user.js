@@ -1,12 +1,14 @@
 // ==UserScript==
-// @name         ZJSU抢课
+// @name         ZJSU抢课小棉袄
 // @namespace    https://github.com/Zzzcy-tx/ZJSU_GetMyCoursePLZ
-// @version      1.0
-// @description  发送包含指定的数据的HTTP POST
+// @version      2.1
+// @description  发送包含指定的数据的HTTP POST，用以模拟单次点击。
 // @author       Zzzcy
 // @match        */jwglxt/*gnmkdm=N253512*
 // @grant        unsafeWindow
 // @license      MPL
+// @downloadURL https://update.greasyfork.org/scripts/474701/ZJSU%E6%8A%A2%E8%AF%BE%E5%B0%8F%E6%A3%89%E8%A2%84.user.js
+// @updateURL https://update.greasyfork.org/scripts/474701/ZJSU%E6%8A%A2%E8%AF%BE%E5%B0%8F%E6%A3%89%E8%A2%84.meta.js
 // ==/UserScript==
 
 var data1, route, responseData, stuNumber;
@@ -14,7 +16,6 @@ let draggableBox;
 const qqNumber = '552241992'
 let shouldCaptureFetch = false;
 
-// 监听页面的 XMLHttpRequest 请求
 const open = XMLHttpRequest.prototype.open;
 const send = XMLHttpRequest.prototype.send;
 const originalSend = XMLHttpRequest.prototype.send;
@@ -28,7 +29,6 @@ XMLHttpRequest.prototype.open = function (method, url) {
         stuNumber = url.substring(58,69);
         console.log(stuNumber);
     }
-    // 继续原始的 XMLHttpRequest 请求
     return open.apply(this, arguments);
 };
 
@@ -38,43 +38,63 @@ XMLHttpRequest.prototype.send = function (data) {
         data1 = data;
     }
     console.log(data1);
-    originalSend.call(this, data);// 继续原始的 XMLHttpRequest 请求
+    originalSend.call(this, data);
 };
 
-// 创建一个元素来显示数据
+const footer = document.getElementById('footerID');
+
 const resultDiv = document.createElement('div');
-document.body.appendChild(resultDiv);
-resultDiv.textContent = '   等待开启。'
 
-const lineBreak = document.createElement('br');
-document.body.appendChild(lineBreak);
+resultDiv.textContent = ' 等待开启。';
+resultDiv.style.textAlign = 'center';
+resultDiv.style.fontFamily = 'Arial';
+resultDiv.style.fontWeight = 'bold';
+resultDiv.style.fontSize = '20px';
+resultDiv.style.marginTop = '20px';
+resultDiv.style.marginBottom = '20px';
 
-// 创建一个“请求”按钮和一个“停止”按钮
+footer.insertAdjacentElement('beforebegin', resultDiv);
+
+const buttonContainer = document.createElement('div');
+buttonContainer.style.display = 'flex';
+buttonContainer.style.justifyContent = 'center';
+buttonContainer.style.gap = '40px';
+buttonContainer.style.marginTop = '20px';
+buttonContainer.style.marginBottom = '20px';
+buttonContainer.style.textAlign = 'center';
+buttonContainer.style.fontFamily = 'Arial';
+buttonContainer.style.fontSize = '18px';
+
+// 创建发送 POST 请求按钮
 const requestButton = document.createElement('button');
-requestButton.textContent = ' 发送 POST 请求 ';
-document.body.appendChild(requestButton);
+requestButton.style.padding = '5px 15px';
+requestButton.textContent = '开始模拟点击';
+buttonContainer.appendChild(requestButton); // 将按钮添加到容器中
+// 创建停止按钮
 const stopButton = document.createElement('button');
-stopButton.textContent = ' 停止 ';
-document.body.appendChild(stopButton);
-
+stopButton.style.padding = '5px 15px';
+stopButton.textContent = '停止模拟点击';
+buttonContainer.appendChild(stopButton); // 将按钮添加到容器中
+// 创建录制 POST 按钮
 const recordButton = document.createElement('button');
-recordButton.textContent = ' 录制POST '
-document.body.appendChild(recordButton);
+recordButton.style.padding = '5px 15px';
+recordButton.textContent = '录制点击数据';
+buttonContainer.appendChild(recordButton); // 将按钮添加到容器中
 
-document.body.appendChild(lineBreak);
+// 将按钮容器插入到 footer 之前
+footer.insertAdjacentElement('beforebegin', buttonContainer);
 
 
-// 请求是否正在进行
 let isRequesting = false;
 
-// “请求”按钮点击事件处理程序
+
 requestButton.addEventListener('click', () => {
   if (!isRequesting) {
     isRequesting = true;
     requestLoop();
   }
 });
-// “停止”按钮点击事件处理程序
+
 stopButton.addEventListener('click', () => {
     isRequesting = false;
     resultDiv.textContent = '等待开启。'
@@ -91,7 +111,7 @@ recordButton.addEventListener('click', () => {
 });
 
 
-// 定义一个函数来发送POST请求
+
 async function sendPostRequest() {
   try {
       const data = data1;
@@ -122,15 +142,14 @@ async function sendPostRequest() {
       var flag = JSON.parse(responseData).flag;
       console.log(flag);
 
-      // 将JSON数据转换为字符串并显示在<div>元素中
       if(flag === '-1'){
           resultDiv.textContent = '正在等待余量放出，请耐心等待……'
       } else if( flag === '0' ){
-          resultDiv.textContent = '排课时间冲突或未正确录制POST！请刷新界面'
+          resultDiv.textContent = '排课时间冲突或未正确录制点击数据！请刷新界面'
       } else if( flag === '1' ){
-          resultDiv.textContent = '抢课成功 \\^_^// '
+          resultDiv.textContent = '恭喜，抢课成功！ \\^_^// '
       } else {
-          resultDiv.textContent = `未知flag,请联系技术人员QQ:${qqNumber}`
+          resultDiv.textContent = `未知错误，请联系技术人员QQ:${qqNumber}`
       }
       //resultDiv.textContent = JSON.stringify(responseData, null, 2);
       // 如果data.flag等于1，或者停止按钮按下，则停止请求
@@ -141,7 +160,7 @@ async function sendPostRequest() {
     console.error('发生错误：', error);
   }
 };
-// 定义一个函数来定时发送请求
+
 async function requestLoop() {
     while (isRequesting) {
         await sendPostRequest();
@@ -149,7 +168,7 @@ async function requestLoop() {
         route = document.cookie;
     }
 };
-// sleep函数
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -212,8 +231,6 @@ function sleep(ms) {
             color: #0be94e;
         }
         `
-    
-    
     document.head.appendChild(style);
     const grabclasscontainer = document.createElement('div');
     grabclasscontainer.className = 'grabclasscontainer';
@@ -226,22 +243,19 @@ function sleep(ms) {
             <div class="copyright">
                 【使用方式】<br>
                 1.点开你想要的课，确保这课的时间段没有冲突。<br>
-                2.滚动到网页最下方，点击“录制POST”，然后点右边的“选课”<br>
+                2.滚动到网页最下方，点击“录制点击数据”，然后点右边的“选课”<br>
                 3.中间会弹出提示“已无余量，不可选”的提示，点确定。<br>
-                4.接着点击网页最下方的“发送POST请求”，观察按钮上方提示，“正在等待余量放出，请耐心等待……”则为正常<br>
+                4.接着点击网页最下方的“开始模拟点击”，观察按钮上方提示，“正在等待余量放出，请耐心等待……”则为正常<br>
                 5.不要关闭网页，不要关闭电脑，最好把网页最大化，等待抢课成功。<br><br><br>
                 【联系作者】有偿帮助：QQ：${qqNumber}<br>
             </div>
         </div>
         `
-    
     document.body.appendChild(grabclasscontainer);
     draggableBox = document.getElementById("grabclasscontainer");
     const dragBar = draggableBox.querySelector(".dragBar");
     let isDragging = false;
     let offsetX, offsetY;
-    
-    //EventTarget Listeners
     dragBar.addEventListener("mousedown", (e) => {
         isDragging = true;
         offsetX = e.clientX - draggableBox.getBoundingClientRect().left;
