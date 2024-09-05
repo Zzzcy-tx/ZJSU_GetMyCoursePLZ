@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         ZJSUÇÀ¿ÎĞ¡ÃŞ°À
+// @name         ZJSUæŠ¢è¯¾å°æ£‰è¢„
 // @namespace    https://github.com/Zzzcy-tx/ZJSU_GetMyCoursePLZ
 // @version      2.1
-// @description  ·¢ËÍ°üº¬Ö¸¶¨µÄÊı¾İµÄHTTP POST£¬ÓÃÒÔÄ£Äâµ¥´Îµã»÷¡£
+// @description  å‘é€åŒ…å«æŒ‡å®šçš„æ•°æ®çš„HTTP POSTï¼Œç”¨ä»¥æ¨¡æ‹Ÿå•æ¬¡ç‚¹å‡»ã€‚
 // @author       Zzzcy
 // @match        */jwglxt/*gnmkdm=N253512*
 // @grant        unsafeWindow
@@ -45,7 +45,7 @@ const footer = document.getElementById('footerID');
 
 const resultDiv = document.createElement('div');
 
-resultDiv.textContent = ' µÈ´ı¿ªÆô¡£';
+resultDiv.textContent = ' ç­‰å¾…å¼€å¯ã€‚';
 resultDiv.style.textAlign = 'center';
 resultDiv.style.fontFamily = 'Arial';
 resultDiv.style.fontWeight = 'bold';
@@ -65,23 +65,23 @@ buttonContainer.style.textAlign = 'center';
 buttonContainer.style.fontFamily = 'Arial';
 buttonContainer.style.fontSize = '18px';
 
-// ´´½¨·¢ËÍ POST ÇëÇó°´Å¥
+// åˆ›å»ºå‘é€ POST è¯·æ±‚æŒ‰é’®
 const requestButton = document.createElement('button');
 requestButton.style.padding = '5px 15px';
-requestButton.textContent = '¿ªÊ¼Ä£Äâµã»÷';
-buttonContainer.appendChild(requestButton); // ½«°´Å¥Ìí¼Óµ½ÈİÆ÷ÖĞ
-// ´´½¨Í£Ö¹°´Å¥
+requestButton.textContent = 'å¼€å§‹æ¨¡æ‹Ÿç‚¹å‡»';
+buttonContainer.appendChild(requestButton); // å°†æŒ‰é’®æ·»åŠ åˆ°å®¹å™¨ä¸­
+// åˆ›å»ºåœæ­¢æŒ‰é’®
 const stopButton = document.createElement('button');
 stopButton.style.padding = '5px 15px';
-stopButton.textContent = 'Í£Ö¹Ä£Äâµã»÷';
-buttonContainer.appendChild(stopButton); // ½«°´Å¥Ìí¼Óµ½ÈİÆ÷ÖĞ
-// ´´½¨Â¼ÖÆ POST °´Å¥
+stopButton.textContent = 'åœæ­¢æ¨¡æ‹Ÿç‚¹å‡»';
+buttonContainer.appendChild(stopButton); // å°†æŒ‰é’®æ·»åŠ åˆ°å®¹å™¨ä¸­
+// åˆ›å»ºå½•åˆ¶ POST æŒ‰é’®
 const recordButton = document.createElement('button');
 recordButton.style.padding = '5px 15px';
-recordButton.textContent = 'Â¼ÖÆµã»÷Êı¾İ';
-buttonContainer.appendChild(recordButton); // ½«°´Å¥Ìí¼Óµ½ÈİÆ÷ÖĞ
+recordButton.textContent = 'å½•åˆ¶ç‚¹å‡»æ•°æ®';
+buttonContainer.appendChild(recordButton); // å°†æŒ‰é’®æ·»åŠ åˆ°å®¹å™¨ä¸­
 
-// ½«°´Å¥ÈİÆ÷²åÈëµ½ footer Ö®Ç°
+// å°†æŒ‰é’®å®¹å™¨æ’å…¥åˆ° footer ä¹‹å‰
 footer.insertAdjacentElement('beforebegin', buttonContainer);
 
 
@@ -97,16 +97,16 @@ requestButton.addEventListener('click', () => {
 
 stopButton.addEventListener('click', () => {
     isRequesting = false;
-    resultDiv.textContent = 'µÈ´ı¿ªÆô¡£'
+    resultDiv.textContent = 'ç­‰å¾…å¼€å¯ã€‚'
 });
 
 recordButton.addEventListener('click', () => {
     if(shouldCaptureFetch){
         shouldCaptureFetch = false
-        resultDiv.textContent = 'Î´¿ªÊ¼¼àÌıPOST'
+        resultDiv.textContent = 'æœªå¼€å§‹ç›‘å¬POST'
     } else {
         shouldCaptureFetch = true
-        resultDiv.textContent = 'ÕıÔÚ¼àÌıPOST¡­¡­'
+        resultDiv.textContent = 'æ­£åœ¨ç›‘å¬POSTâ€¦â€¦'
     }
 });
 
@@ -143,21 +143,21 @@ async function sendPostRequest() {
       console.log(flag);
 
       if(flag === '-1'){
-          resultDiv.textContent = 'ÕıÔÚµÈ´ıÓàÁ¿·Å³ö£¬ÇëÄÍĞÄµÈ´ı¡­¡­'
+          resultDiv.textContent = 'æ­£åœ¨ç­‰å¾…ä½™é‡æ”¾å‡ºï¼Œè¯·è€å¿ƒç­‰å¾…â€¦â€¦'
       } else if( flag === '0' ){
-          resultDiv.textContent = 'ÅÅ¿ÎÊ±¼ä³åÍ»»òÎ´ÕıÈ·Â¼ÖÆµã»÷Êı¾İ£¡ÇëË¢ĞÂ½çÃæ'
+          resultDiv.textContent = 'æ’è¯¾æ—¶é—´å†²çªæˆ–æœªæ­£ç¡®å½•åˆ¶ç‚¹å‡»æ•°æ®ï¼è¯·åˆ·æ–°ç•Œé¢'
       } else if( flag === '1' ){
-          resultDiv.textContent = '¹§Ï²£¬ÇÀ¿Î³É¹¦£¡ \\^_^// '
+          resultDiv.textContent = 'æ­å–œï¼ŒæŠ¢è¯¾æˆåŠŸï¼ \\^_^// '
       } else {
-          resultDiv.textContent = `Î´Öª´íÎó£¬ÇëÁªÏµ¼¼ÊõÈËÔ±QQ:${qqNumber}`
+          resultDiv.textContent = `æœªçŸ¥é”™è¯¯ï¼Œè¯·è”ç³»æŠ€æœ¯äººå‘˜QQ:${qqNumber}`
       }
       //resultDiv.textContent = JSON.stringify(responseData, null, 2);
-      // Èç¹ûdata.flagµÈÓÚ1£¬»òÕßÍ£Ö¹°´Å¥°´ÏÂ£¬ÔòÍ£Ö¹ÇëÇó
+      // å¦‚æœdata.flagç­‰äº1ï¼Œæˆ–è€…åœæ­¢æŒ‰é’®æŒ‰ä¸‹ï¼Œåˆ™åœæ­¢è¯·æ±‚
       if (flag === '1' || flag === '0' || !isRequesting) {
           isRequesting = false;
       }
   } catch (error) {
-    console.error('·¢Éú´íÎó£º', error);
+    console.error('å‘ç”Ÿé”™è¯¯ï¼š', error);
   }
 };
 
@@ -174,7 +174,7 @@ function sleep(ms) {
 };
 
 
-//ÌáÊ¾½çÃæ
+//æç¤ºç•Œé¢
 (function () {
     const style = document.createElement('style');
     style.textContent =
@@ -237,17 +237,17 @@ function sleep(ms) {
     grabclasscontainer.id = 'grabclasscontainer';
     grabclasscontainer.innerHTML = `
         <div class="dragBar" id="dragBar">
-            °´×¡ÍÏ¶¯
+            æŒ‰ä½æ‹–åŠ¨
         </div>
         <div class="content">
             <div class="copyright">
-                ¡¾Ê¹ÓÃ·½Ê½¡¿<br>
-                1.µã¿ªÄãÏëÒªµÄ¿Î£¬È·±£Õâ¿ÎµÄÊ±¼ä¶ÎÃ»ÓĞ³åÍ»¡£<br>
-                2.¹ö¶¯µ½ÍøÒ³×îÏÂ·½£¬µã»÷¡°Â¼ÖÆµã»÷Êı¾İ¡±£¬È»ºóµãÓÒ±ßµÄ¡°Ñ¡¿Î¡±<br>
-                3.ÖĞ¼ä»áµ¯³öÌáÊ¾¡°ÒÑÎŞÓàÁ¿£¬²»¿ÉÑ¡¡±µÄÌáÊ¾£¬µãÈ·¶¨¡£<br>
-                4.½Ó×Åµã»÷ÍøÒ³×îÏÂ·½µÄ¡°¿ªÊ¼Ä£Äâµã»÷¡±£¬¹Û²ì°´Å¥ÉÏ·½ÌáÊ¾£¬¡°ÕıÔÚµÈ´ıÓàÁ¿·Å³ö£¬ÇëÄÍĞÄµÈ´ı¡­¡­¡±ÔòÎªÕı³£<br>
-                5.²»Òª¹Ø±ÕÍøÒ³£¬²»Òª¹Ø±ÕµçÄÔ£¬×îºÃ°ÑÍøÒ³×î´ó»¯£¬µÈ´ıÇÀ¿Î³É¹¦¡£<br><br><br>
-                ¡¾ÁªÏµ×÷Õß¡¿ÓĞ³¥°ïÖú£ºQQ£º${qqNumber}<br>
+                ã€ä½¿ç”¨æ–¹å¼ã€‘<br>
+                1.ç‚¹å¼€ä½ æƒ³è¦çš„è¯¾ï¼Œç¡®ä¿è¿™è¯¾çš„æ—¶é—´æ®µæ²¡æœ‰å†²çªã€‚<br>
+                2.æ»šåŠ¨åˆ°ç½‘é¡µæœ€ä¸‹æ–¹ï¼Œç‚¹å‡»â€œå½•åˆ¶ç‚¹å‡»æ•°æ®â€ï¼Œç„¶åç‚¹å³è¾¹çš„â€œé€‰è¯¾â€<br>
+                3.ä¸­é—´ä¼šå¼¹å‡ºæç¤ºâ€œå·²æ— ä½™é‡ï¼Œä¸å¯é€‰â€çš„æç¤ºï¼Œç‚¹ç¡®å®šã€‚<br>
+                4.æ¥ç€ç‚¹å‡»ç½‘é¡µæœ€ä¸‹æ–¹çš„â€œå¼€å§‹æ¨¡æ‹Ÿç‚¹å‡»â€ï¼Œè§‚å¯ŸæŒ‰é’®ä¸Šæ–¹æç¤ºï¼Œâ€œæ­£åœ¨ç­‰å¾…ä½™é‡æ”¾å‡ºï¼Œè¯·è€å¿ƒç­‰å¾…â€¦â€¦â€åˆ™ä¸ºæ­£å¸¸<br>
+                5.ä¸è¦å…³é—­ç½‘é¡µï¼Œä¸è¦å…³é—­ç”µè„‘ï¼Œæœ€å¥½æŠŠç½‘é¡µæœ€å¤§åŒ–ï¼Œç­‰å¾…æŠ¢è¯¾æˆåŠŸã€‚<br><br><br>
+                ã€è”ç³»ä½œè€…ã€‘æœ‰å¿å¸®åŠ©ï¼šQQï¼š${qqNumber}<br>
             </div>
         </div>
         `
@@ -271,7 +271,7 @@ function sleep(ms) {
     });
     document.addEventListener("mouseup", () => {
         isDragging = false;
-        draggableBox.style.transition = "all 0.3s ease"; // Ìí¼ÓÆ½»¬µÄ¹ı¶ÉĞ§¹û
+        draggableBox.style.transition = "all 0.3s ease"; // æ·»åŠ å¹³æ»‘çš„è¿‡æ¸¡æ•ˆæœ
     });
     draggableBox.querySelector('.clear').addEventListener('click', () => {
         localStorage.removeItem('targetTeacher');
