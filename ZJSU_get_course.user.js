@@ -5,6 +5,7 @@
 // @description  发送包含指定的数据的HTTP POST，用以模拟单次点击。
 // @author       Zzzcy
 // @match        */jwglxt/*gnmkdm=N253512*
+// @icon         https://jwxt.zjgsu.edu.cn/jwglxt/logo/favicon.ico?t=1725699891340
 // @grant        unsafeWindow
 // @license      MPL
 // @downloadURL https://update.greasyfork.org/scripts/474701/ZJSU%E6%8A%A2%E8%AF%BE%E5%B0%8F%E6%A3%89%E8%A2%84.user.js
