@@ -118,15 +118,15 @@ async function sendPostRequest() {
       const data = data1;
       let xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
-      xhr.open('POST', `https://jwxt.zjgsu.edu.cn/jwglxt/xsxk/zzxkyzb_xkBcZyZzxkYzb.html?gnmkdm=N253512&su=${stuNumber}`);
+      xhr.open('POST', `http://124.160.64.163/jwglxt/xsxk/zzxkyzb_xkBcZyZzxkYzb.html?gnmkdm=N253512&su=${stuNumber}`);
       xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0');
       xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
       xhr.setRequestHeader('Accept-Language', 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2');
       xhr.setRequestHeader('Accept-Encoding', 'gzip, deflate, br');
-      xhr.setRequestHeader('Referer', `https://jwxt.zjgsu.edu.cn/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html?gnmkdm=N253512&layout=default&su=${stuNumber}`);
+      xhr.setRequestHeader('Referer', `http://124.160.64.163/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html?gnmkdm=N253512&layout=default&su=${stuNumber}`);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      xhr.setRequestHeader('Origin', 'https://jwxt.zjgsu.edu.cn');
+      xhr.setRequestHeader('Origin', 'http://124.160.64.163/');
       xhr.setRequestHeader('DNT', '1');
       xhr.setRequestHeader('Connection', 'keep-alive');
       xhr.setRequestHeader('Cookie', `${route}`);
