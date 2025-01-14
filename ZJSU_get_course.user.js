@@ -12,7 +12,7 @@
 // @updateURL https://update.greasyfork.org/scripts/474701/ZJSU%E6%8A%A2%E8%AF%BE%E5%B0%8F%E6%A3%89%E8%A2%84.meta.js
 // ==/UserScript==
 
-var data1, route, responseData, stuNumber;
+var data1, route, responseData;
 let draggableBox;
 const qqNumber = '552241992'
 let shouldCaptureFetch = false;
@@ -27,8 +27,8 @@ XMLHttpRequest.prototype.open = function (method, url) {
     if (shouldCaptureFetch) {
         const parser = document.createElement('a');
         parser.href = url;
-        stuNumber = url.substring(58,69);
-        console.log(stuNumber);
+        //stuNumber = url.substring(58,69);
+        //console.log(stuNumber);
     }
     return open.apply(this, arguments);
 };
@@ -118,15 +118,15 @@ async function sendPostRequest() {
       const data = data1;
       let xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
-      xhr.open('POST', `http://124.160.64.163/jwglxt/xsxk/zzxkyzb_xkBcZyZzxkYzb.html?gnmkdm=N253512&su=${stuNumber}`);
+      xhr.open('POST', `https://jwxt.zjgsu.edu.cn/jwglxt/xsxk/zzxkyzb_xkBcZyZzxkYzb.html?gnmkdm=N253512`);
       xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0');
       xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
       xhr.setRequestHeader('Accept-Language', 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2');
       xhr.setRequestHeader('Accept-Encoding', 'gzip, deflate, br');
-      xhr.setRequestHeader('Referer', `http://124.160.64.163/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html?gnmkdm=N253512&layout=default&su=${stuNumber}`);
+      xhr.setRequestHeader('Referer', `https://jwxt.zjgsu.edu.cn/jwglxt/xsxk/zzxkyzb_cxZzxkYzbIndex.html?gnmkdm=N253512&layout=default`);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      xhr.setRequestHeader('Origin', 'http://124.160.64.163/');
+      xhr.setRequestHeader('Origin', 'http://jwxt.zjgsu.edu.cn');
       xhr.setRequestHeader('DNT', '1');
       xhr.setRequestHeader('Connection', 'keep-alive');
       xhr.setRequestHeader('Cookie', `${route}`);
