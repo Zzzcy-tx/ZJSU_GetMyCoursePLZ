@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJSU抢课小棉袄
 // @namespace    https://github.com/Zzzcy-tx/ZJSU_GetMyCoursePLZ
-// @version      2.3
+// @version      2.31
 // @description  发送包含指定的数据的HTTP POST，用以模拟单次点击。
 // @author       Zzzcy
 // @match        */jwglxt/*gnmkdm=N253512*
